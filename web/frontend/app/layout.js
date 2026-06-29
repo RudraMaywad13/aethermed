@@ -1,28 +1,45 @@
-import { Geist, Geist_Mono ,Mocondo} from "next/font/google";
+import {Geist, Geist_Mono, Macondo} from "next/font/google";
 import "./globals.css";
+import {TooltipProvider} from "@/components/ui/tooltip";
+import { Arimo } from "next/font/google";
+
+const arimo = Arimo({
+    subsets: ["latin"],
+    variable: "--font-sans",
+});
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+    variable: "--font-geist-sans",
+    subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+    variable: "--font-geist-mono",
+    subsets: ["latin"],
+});
+
+const macondo = Macondo({
+    weight: "400",
+    subsets: ["latin"],
+    variable: "--font-macondo",
 });
 
 export const metadata = {
-  title: "AetherMed",
-  description: "Assitant every mordern radiologist deserves",
+    title: "AetherMed",
+    description: "Assistant every modern radiologist deserves",
 };
 
-export default function RootLayout({ children }) {
-  return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
-    </html>
-  );
+export default function RootLayout({children}) {
+    return (
+        <html
+            lang="en"
+            className={macondo.className}
+        >
+        <body className="min-h-screen bg-gray-900">
+        <TooltipProvider>
+            {children}
+        </TooltipProvider>
+        </body>
+        </html>
+    );
 }
