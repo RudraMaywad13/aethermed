@@ -35,7 +35,7 @@ export default function RootLayout({children}) {
             lang="en"
             className={macondo.className}
         >
-        <body className="min-h-screen bg-gray-900">
+        <body className="min-h-screen bg-black">
         <TooltipProvider>
             {children}
         </TooltipProvider>
