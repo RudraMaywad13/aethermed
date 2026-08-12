@@ -124,6 +124,8 @@ AetherMed explores multiple fields of artificial intelligence.
 * Clinical Decision Support Systems
 * Multimodal Artificial Intelligence
 
+### note: I just used ai for basic planning and file structure
+
 # License
 
 Released under the MIT License.
