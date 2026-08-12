@@ -5,9 +5,12 @@ import io
 import os
 import tempfile
 from gradio_client import Client, handle_file
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI()
-client = Client("warshanks/medgemma-4b-it")
+client = Client(os.getenv("CLIENT"))
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
