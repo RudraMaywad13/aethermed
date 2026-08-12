@@ -1,6 +1,6 @@
 'use client';
 
-import Markdown from 'markdown-to-jsx'
+import Markdown from 'markdown-to-jsx';
 import { useState } from 'react';
 
 export default function MedicalPredictor() {
@@ -39,10 +39,13 @@ export default function MedicalPredictor() {
         formData.append('prompt', prompt);
 
         try {
-            const response = await fetch('https://aethermed.onrender.com/predict', {
-                method: 'POST',
-                body: formData,
-            });
+            const response = await fetch(
+                'https://aethermed.onrender.com/predict',
+                {
+                    method: 'POST',
+                    body: formData,
+                }
+            );
 
             const data = await response.json();
 
@@ -51,11 +54,6 @@ export default function MedicalPredictor() {
                     data.detail || 'Failed to process the model request.'
                 );
             }
-
-            // Works with either:
-            // { "analysis": "..." }
-            // or:
-            // { "response": "..." }
 
             setResult(
                 data.analysis ||
@@ -73,169 +71,176 @@ export default function MedicalPredictor() {
     };
 
     return (
-        <div
-            style={{
-                maxWidth: '600px',
-                margin: '3rem auto',
-                padding: '2rem',
-                fontFamily: 'system-ui, sans-serif',
-                border: '1px solid #eaeaea',
-                borderRadius: '8px',
-            }}
-        >
-            <h2 style={{ marginBottom: '1.5rem' }}>
-                MedGemma Image Analyzer
-            </h2>
+        <main className="min-h-screen bg-slate-50 px-5 py-12">
+            <div className="mx-auto max-w-3xl">
 
-            <form
-                onSubmit={handleSubmit}
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '1.5rem',
-                }}
-            >
-                {/* Image Upload */}
+                {/* Header */}
+                <div className="mb-8">
+                    <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-600">
+                        <span>✦</span>
+                        AetherMed AI
+                    </div>
 
-                <div>
-                    <label
-                        style={{
-                            display: 'block',
-                            marginBottom: '0.5rem',
-                            fontWeight: 'bold',
-                        }}
+                    <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+                        Medical Image Analyzer
+                    </h1>
+
+                    <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-500 sm:text-base">
+                        Upload a medical image and provide an analysis
+                        prompt for MedGemma.
+                    </p>
+                </div>
+
+                {/* Form Card */}
+                <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+
+                    <form
+                        onSubmit={handleSubmit}
+                        className="space-y-7"
                     >
-                        Upload Medical Image:
-                    </label>
 
-                    <input
-                        type="file"
-                        accept="image/png, image/jpeg, image/jpg"
-                        onChange={handleFileChange}
-                    />
+                        {/* Upload */}
+                        <div>
+                            <div className="mb-3 flex items-center justify-between">
+                                <label className="text-sm font-semibold text-slate-900">
+                                    Medical Image
+                                </label>
 
-                    {previewUrl && (
-                        <div style={{ marginTop: '1rem' }}>
-                            <p
-                                style={{
-                                    fontSize: '0.85rem',
-                                    color: '#666',
-                                }}
+                                <span className="text-xs text-slate-400">
+                                    PNG / JPG / JPEG
+                                </span>
+                            </div>
+
+                            <label
+                                htmlFor="medical-image"
+                                className="group block cursor-pointer rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 p-5 transition hover:border-blue-400 hover:bg-blue-50/30"
                             >
-                                Image Preview:
-                            </p>
+                                {previewUrl ? (
+                                    <div>
+                                        <img
+                                            src={previewUrl}
+                                            alt="Medical image preview"
+                                            className="mx-auto max-h-[380px] w-full rounded-lg bg-slate-900 object-contain"
+                                        />
 
-                            <img
-                                src={previewUrl}
-                                alt="Medical image preview"
-                                style={{
-                                    maxWidth: '100%',
-                                    maxHeight: '300px',
-                                    borderRadius: '4px',
-                                }}
+                                        <p className="mt-3 text-center text-sm font-medium text-blue-600">
+                                            Click to replace image
+                                        </p>
+                                    </div>
+                                ) : (
+                                    <div className="flex flex-col items-center justify-center py-10 text-center">
+                                        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-blue-50 text-2xl text-blue-600">
+                                            +
+                                        </div>
+
+                                        <p className="text-sm font-semibold text-slate-900">
+                                            Upload a medical image
+                                        </p>
+
+                                        <p className="mt-1 text-xs text-slate-400">
+                                            Click here to browse your files
+                                        </p>
+                                    </div>
+                                )}
+
+                                <input
+                                    id="medical-image"
+                                    type="file"
+                                    accept="image/png, image/jpeg, image/jpg"
+                                    onChange={handleFileChange}
+                                    className="hidden"
+                                />
+                            </label>
+
+                            {file && (
+                                <div className="mt-2 rounded-lg bg-slate-50 px-3 py-2 text-xs text-slate-500">
+                                    Selected: {file.name}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Prompt */}
+                        <div>
+                            <div className="mb-3 flex items-center justify-between">
+                                <label
+                                    htmlFor="analysis-prompt"
+                                    className="text-sm font-semibold text-slate-900"
+                                >
+                                    Analysis Prompt
+                                </label>
+
+                                <span className="text-xs text-slate-400">
+                                    Required
+                                </span>
+                            </div>
+
+                            <textarea
+                                id="analysis-prompt"
+                                rows={5}
+                                value={prompt}
+                                onChange={(e) =>
+                                    setPrompt(e.target.value)
+                                }
+                                placeholder="Example: Analyze this chest X-ray and describe any visible abnormalities."
+                                className="w-full resize-y rounded-xl border border-slate-300 bg-white px-4 py-3.5 text-sm leading-6 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                             />
+
+                            <p className="mt-2 text-xs text-slate-400">
+                                Ask MedGemma what you want it to analyze.
+                            </p>
+                        </div>
+
+                        {/* Submit */}
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className="w-full rounded-xl bg-blue-600 px-5 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 hover:shadow-md disabled:cursor-not-allowed disabled:bg-slate-400"
+                        >
+                            {loading
+                                ? 'Analyzing with MedGemma...'
+                                : 'Analyze Image'}
+                        </button>
+                    </form>
+
+                    {/* Error */}
+                    {error && (
+                        <div className="mt-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm leading-6 text-red-700">
+                            <strong>Error:</strong> {error}
                         </div>
                     )}
                 </div>
 
-                {/* Prompt */}
+                {/* Result */}
+                {result && (
+                    <div className="mt-6 rounded-2xl border border-blue-100 bg-white p-6 shadow-sm sm:p-8">
+                        <div className="mb-5 flex items-center gap-3">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                                ✦
+                            </div>
 
-                <div>
-                    <label
-                        style={{
-                            display: 'block',
-                            marginBottom: '0.5rem',
-                            fontWeight: 'bold',
-                        }}
-                    >
-                        Analysis Query / Prompt:
-                    </label>
+                            <div>
+                                <h2 className="text-lg font-bold text-slate-900">
+                                    AI Analysis
+                                </h2>
 
-                    <textarea
-                        rows={4}
-                        style={{
-                            width: '100%',
-                            padding: '0.75rem',
-                            borderRadius: '4px',
-                            border: '1px solid #ccc',
-                            resize: 'vertical',
-                        }}
-                        placeholder="Describe the anomalies or check for specific conditions..."
-                        value={prompt}
-                        onChange={(e) => setPrompt(e.target.value)}
-                    />
-                </div>
+                                <p className="text-xs text-slate-400">
+                                    Generated by MedGemma
+                                </p>
+                            </div>
+                        </div>
 
-                {/* Submit Button */}
+                        <div className="prose prose-slate max-w-none text-sm leading-7">
+                            <Markdown>{result}</Markdown>
+                        </div>
+                    </div>
+                )}
 
-                <button
-                    type="submit"
-                    disabled={loading}
-                    style={{
-                        padding: '0.75rem',
-                        backgroundColor: loading ? '#ccc' : '#0070f3',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '4px',
-                        cursor: loading ? 'not-allowed' : 'pointer',
-                        fontWeight: 'bold',
-                    }}
-                >
-                    {loading
-                        ? 'Analyzing with MedGemma...'
-                        : 'Submit to AI Model'}
-                </button>
-            </form>
-
-            {/* Error */}
-
-            {error && (
-                <div
-                    style={{
-                        color: 'red',
-                        marginTop: '1.5rem',
-                        padding: '1rem',
-                        border: '1px solid red',
-                        borderRadius: '4px',
-                        backgroundColor: '#fff5f5',
-                    }}
-                >
-                    <strong>Error:</strong> {error}
-                </div>
-            )}
-
-            {/* Result */}
-
-            {result && (
-                <div
-                    style={{
-                        marginTop: '2rem',
-                        padding: '1.5rem',
-                        backgroundColor: '#f0f4f8',
-                        borderRadius: '6px',
-                        border: '1px solid #d0e2ff',
-                    }}
-                >
-                    <h3
-                        style={{
-                            marginTop: 0,
-                            color: '#004085',
-                        }}
-                    >
-                        AI Analysis Result:
-                    </h3>
-
-                    <p
-                        style={{
-                            whiteSpace: 'pre-wrap',
-                            lineHeight: '1.6',
-                            margin: 0,
-                        }}
-                    >
-                        <Markdown>{result}</Markdown>
-                    </p>
-                </div>
-            )}
-        </div>
+                {/* Disclaimer */}
+                <p className="mx-auto mt-6 max-w-xl text-center text-[11px] leading-5 text-slate-400">
+                    AetherMed is an experimental research project and
+                    is not a substitute for professional medical advice.
+                </p>
+            </div>
+        </main>
     );
 }
