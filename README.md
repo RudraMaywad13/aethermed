@@ -12,128 +12,60 @@
 
 ---
 
-# 🌍 Vision
+# Vision
 
 Every year, millions of chest X-rays are interpreted worldwide. Radiologists face increasing workloads while healthcare systems strive to deliver faster, more accurate diagnoses.
 
-**AetherMed** is an open-source multimodal AI platform designed to assist—not replace—healthcare professionals. By combining computer vision, biomedical language models, and modern software engineering, AetherMed aims to provide explainable, trustworthy AI assistance for chest X-ray interpretation.
+Especially in India Radiolgists needs to see more than 200 report a day I wish to cut their processeing time by more than 50%.
 
-Our long-term vision is to build a transparent, research-driven platform that bridges cutting-edge artificial intelligence with real-world clinical workflows while remaining accessible to researchers, developers, and students.
+**AetherMed** is an multimodal AI platform designed to assist healthcare profesionals. By combining CNN and biomedical language models, AetherMed aims to provide explainable, trustworthy AI assistance for chest X-ray interpretation.
 
----
+My long-term vision is to build a transparent, research-driven platform that bridges cutting-edge artificial intelligence with real-world clinical workflows while remaining acecsible to researchers, developers, and students.
 
-# 💡 Why AetherMed?
-
-Medical imaging is one of the most impactful applications of artificial intelligence.
-
-AetherMed was created to explore how modern deep learning, biomedical language models, and scalable software engineering can work together to support clinical decision-making.
-
-Rather than replacing radiologists, AetherMed focuses on augmenting their workflow through explainable predictions, multimodal reasoning, and intuitive software.
 
 ---
 
 # ✨ Features
 
-## Current
+## Currently working
 
-* Modern web application
-* Secure authentication
-* Chest X-ray upload
-* AI inference pipeline
-* Responsive dashboard
-* REST API architecture
-* Modular microservice design
+- Next.js web interface
+- Chest X-ray image upload
+- Image preview
+- Analysis prompt input
+- FastAPI inference API
+- MedGemma fine-tuned inference
+- AI analysis displayed in the browser
+- Markdown-formatted model responses
 
 ## Planned
 
-* Chest X-ray disease classification
-* Explainable AI (Grad-CAM)
-* BioBERT clinical understanding
-* Multimodal reasoning
-* AI-generated radiology reports
-* DICOM support
-* Clinical timeline
-* Multi-study comparison
-* Model confidence visualization
+- [ ] Chest X-ray disease classification
+- [ ] Explainable AI (Grad-CAM)
+- [ ] BioBERT clinical understanding
+- [ ] Multimodal reasoning
+- [ ] AI-generated radiology reports
+- [ ] DICOM support
+- [ ] Clinical timeline
+- [ ] Multi-study comparison
+- [ ] Model confidence visualization
 
 ---
 
-# 🏗 Architecture
 
-```text
-                    User
-                      │
-                      ▼
-              Next.js Frontend
-                      │
-                      ▼
-             Express Backend API
-                      │
-                      ▼
-            FastAPI AI Microservice
-                      │
-                      ▼
-      Vision + Biomedical Language Models
-                      │
-                      ▼
-               Clinical Prediction
-```
 
-The project is intentionally designed as a microservice architecture. The frontend is responsible for user interaction, the Express backend manages authentication and application logic, while the FastAPI service handles all AI inference independently.
 
-This separation allows the AI models to evolve without affecting the web platform.
-
----
-
-# 🧠 Development Roadmap
-
-## 🚀 Version 1 — Web Platform
-
-* Modern frontend
-* Authentication
-* Dashboard
-* Image upload workflow
-* Express backend
-* FastAPI AI service
-* Mock AI predictions
-* End-to-end API communication
-
----
-
-## 🧠 Version 2 — Vision AI
-
-* CheXpert Plus integration
-* PyTorch training pipeline
-* Chest X-ray disease classification
-* Model evaluation
-* Real AI inference
-* Performance optimization
-
----
-
-## 🧬 Version 3 — Multimodal AI
-
-* BioBERT integration
-* Clinical notes understanding
-* Vision-language fusion
-* Explainable AI (Grad-CAM)
-* AI-generated radiology reports
-* Clinical reasoning
-
----
-
-# 🛠 Tech Stack
+# Tech Stack
 
 ## Frontend
 
 * Next.js
-* React
 * JavaScript
 * Tailwind CSS
 
 ---
 
-## Backend
+## Backend (planned)
 
 * Express.js
 * Node.js
@@ -143,7 +75,7 @@ This separation allows the AI models to evolve without affecting the web platfor
 
 ---
 
-## AI Service
+## AI
 
 * FastAPI
 * PyTorch
@@ -153,6 +85,7 @@ This separation allows the AI models to evolve without affecting the web platfor
 * NumPy
 * Pandas
 * Uvicorn
+* MedGemma
 
 ---
 
@@ -162,113 +95,24 @@ This separation allows the AI models to evolve without affecting the web platfor
 
 ---
 
-# 📂 Project Structure
+# Project Structure
 
-```text
-aethermed/
+# Mission
 
-├── ai/
-│   ├── api/
-│   ├── datasets/
-│   ├── models/
-│   ├── training/
-│   ├── inference/
-│   ├── evaluation/
-│   ├── notebooks/
-│   └── utils/
-│
-├── web/
-│   ├── frontend/
-│   └── backend/
-│
-├── docs/
-├── data/
-├── docker/
-└── .github/
-```
+AetherMed is built around these principles.
 
----
-
-# 🚀 Getting Started
-
-## Clone the repository
-
-```bash
-git clone https://github.com/yourusername/aethermed.git
-```
-
----
-
-## Frontend
-
-```bash
-cd web/frontend
-npm install
-npm run dev
-```
-
-Runs on:
-
-```
-http://localhost:3000
-```
-
----
-
-## Backend
-
-```bash
-cd web/backend
-npm install
-npm run dev
-```
-
-Runs on:
-
-```
-http://localhost:5000
-```
-
----
-
-## AI Service
-
-```bash
-conda env create -f environment.yml
-conda activate aethermed-ai
-
-cd ai
-
-uvicorn api.main:app --reload --port 8000
-```
-
-Runs on:
-
-```
-http://localhost:8000
-```
-
----
-
-# 🎯 Mission
-
-AetherMed is built around three principles.
-
-### 🔍 Explainability
+### Explainability
 
 Artificial intelligence should explain its decisions rather than behave as a black box.
 
-### 🌍 Accessibility
 
-Advanced medical AI research should be open, reproducible, and available to everyone.
-
-### 👨‍⚕️ Human-Centered Design
+### Human-Centered Design
 
 Artificial intelligence should assist clinicians—not replace them.
 
 ---
 
-# 🔬 Research Areas
+#  Research Areas
 
 AetherMed explores multiple fields of artificial intelligence.
 
@@ -280,44 +124,6 @@ AetherMed explores multiple fields of artificial intelligence.
 * Clinical Decision Support Systems
 * Multimodal Artificial Intelligence
 
----
-
-# 📈 Development Progress
-
-* 🚧 Version 1 — Web Platform
-* ⬜ Version 2 — Vision AI
-* ⬜ Version 3 — Multimodal AI
-
----
-
-# ⚠ Disclaimer
-
-AetherMed is an educational and research project.
-
-It is **not** intended to diagnose, treat, cure, or prevent any disease and must never be used as a substitute for professional medical judgment.
-
-Any predictions generated by the software should always be reviewed and interpreted by qualified healthcare professionals.
-
----
-
-# 🤝 Contributing
-
-Contributions, discussions, feature requests, and pull requests are welcome.
-
-If you're interested in medical AI, computer vision, or biomedical NLP, feel free to contribute and help improve AetherMed.
-
----
-
-# 📜 License
+# License
 
 Released under the MIT License.
-
----
-
-# 👨‍💻 Author
-
-**Rudra Maywad**
-
-> *Building open-source AI that empowers people through transparent, explainable, and accessible technology.*
-
-If you find this project interesting, consider starring the repository and following its development.
