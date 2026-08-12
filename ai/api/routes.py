@@ -7,13 +7,12 @@ import tempfile
 from gradio_client import Client, handle_file
 
 app = FastAPI()
-
-# Initialize client outside request loop for performance
 client = Client("warshanks/medgemma-4b-it")
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:3000",
+        "https://YOUR-VERCEL-DOMAIN.vercel.app",],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -34,15 +33,12 @@ async def predict_medical_image(
         image_bytes = await image.read()
         pil_image = Image.open(io.BytesIO(image_bytes))
         pil_image.verify()
-
-        # Save bytes to a secure temporary local file for the Gradio client
         suffix = os.path.splitext(image.filename)[1] or ".jpg"
         with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as temp_img:
             temp_img.write(image_bytes)
             temp_path = temp_img.name
 
         try:
-            # Execute actual call using incoming form arguments
             result = client.predict(
                 message={
                     "text": prompt,
@@ -53,7 +49,6 @@ async def predict_medical_image(
                 api_name="/chat"
             )
         finally:
-            # Clean up temporary disk storage immediately
             if os.path.exists(temp_path):
                 os.remove(temp_path)
 
