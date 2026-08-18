@@ -1,12 +1,6 @@
-import {Geist, Geist_Mono, Macondo} from "next/font/google";
+import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import {TooltipProvider} from "@/components/ui/tooltip";
-import { Arimo } from "next/font/google";
-
-const arimo = Arimo({
-    subsets: ["latin"],
-    variable: "--font-sans",
-});
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -18,29 +12,22 @@ const geistMono = Geist_Mono({
     subsets: ["latin"],
 });
 
-const macondo = Macondo({
-    weight: "400",
-    subsets: ["latin"],
-    variable: "--font-macondo",
-});
-
 export const metadata = {
     title: "AetherMed",
-    description: "Assistant every modern radiologist deserves",
+    description: "AI-assisted radiology workflows",
 };
 
 export default function RootLayout({children}) {
     return (
         <html
             lang="en"
-            className={macondo.className}
+            className={`${geistSans.variable} ${geistMono.variable}`}
         >
-        <body className="min-h-screen bg-black">
-        <TooltipProvider>
-            {children}
-        </TooltipProvider>
-        </body>
+            <body className="min-h-screen w-full overflow-x-hidden bg-zinc-950 font-sans">
+                <TooltipProvider>
+                    {children}
+                </TooltipProvider>
+            </body>
         </html>
     );
 }
-// know i am typing bull thit in hope of saving my broken streak i mean i dont tknow twhat the fuck hammppend to me today npw i needs to put up an perfect day for wait so i am fucking relived right now as my streack just got a new life

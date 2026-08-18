@@ -4,9 +4,12 @@ import Desc from "@/components/desc";
 
 export default function Home() {
     return (<div className={'flex justify-center items-center flex-col'}>
-            <Navbar/>
+        <Navbar/>
 
-        <Hero />
-        <Desc />
+        <Hero/>
+
+        <hr className="w-9/10 border-gray-500" />
+
+        <Desc/>
     </div>);
 }
