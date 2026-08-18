@@ -13,5 +13,3 @@
 ### currently AetherMed is in it's first version it is capable of reviewing and giving insights about the x-ray
 
 ### The future version are gonna include Grad-CAM, full-detailed report generation, integration with current docter's workflow, etc.
-
-note: use of ai is strictly restricted to basic planning and folder structure
