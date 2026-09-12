@@ -12,7 +12,7 @@ load_dotenv()
 app = FastAPI()
 
 client = Client(
-    "warshanks/medgemma-4b-it",
+    os.getenv("HOST"),
     token=os.getenv("HF_TOKEN")
 )
 
