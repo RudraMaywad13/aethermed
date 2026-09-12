@@ -13,7 +13,7 @@ app = FastAPI()
 
 client = Client(
     "warshanks/medgemma-4b-it",
-    hf_token="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"
+    token="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"
 )
 
 app.add_middleware(
