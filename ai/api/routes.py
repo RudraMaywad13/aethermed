@@ -5,11 +5,16 @@ import io
 import os
 import tempfile
 from gradio_client import Client, handle_file
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI()
 
-HF_TOKEN = "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"
-client = Client("warshanks/medgemma-4b-it", hf_token=HF_TOKEN)
+client = Client(
+    "warshanks/medgemma-4b-it",
+    hf_token="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"
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -38,6 +43,38 @@ async def predict_medical_image(
         pil_image = Image.open(io.BytesIO(image_bytes))
         pil_image.verify()
         suffix = os.path.splitext(image.filename)[1] or ".jpg"
+
         with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as temp_img:
             temp_img.write(image_bytes)
             temp_path = temp_img.name
+
+        try:
+            result = client.predict(
+                message={
+                    "text": prompt,
+                    "files": [handle_file(temp_path)]
+                },
+                param_2="You an expert radiolgist you have to handle this paitent.",
+                param_3=2048,
+                api_name="/chat"
+            )
+        finally:
+            if os.path.exists(temp_path):
+                os.remove(temp_path)
+
+        return {
+            "status": "success",
+            "filename": image.filename,
+            "analysis": result
+        }
+
+    except Exception as e:
+        print(e)
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to process image: {str(e)}"
+        )
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
