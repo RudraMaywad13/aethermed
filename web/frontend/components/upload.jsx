@@ -24,7 +24,7 @@ export default function MedicalPredictor() {
         e.preventDefault();
 
         if (!file || !prompt.trim()) {
-            setError('Need both an image and a prompt.');
+            setError('Please add an image and a prompt.');
             return;
         }
 
@@ -59,36 +59,52 @@ export default function MedicalPredictor() {
     return (
         <main className="min-h-screen w-full max-w-2xl px-6 py-10">
             <div className="mb-8">
-                <p className="font-mono text-xs text-purple-400 mb-2">aethermed / dashboard</p>
-                <h1 className="text-2xl font-bold text-white">Medical Image Analyzer</h1>
+                <p className="mb-2 font-mono text-xs text-purple-400">
+                    aethermed / dashboard
+                </p>
+
+                <h1 className="text-2xl font-bold text-white">
+                    Chest X-ray
+                </h1>
+
                 <p className="mt-2 text-sm text-zinc-400">
-                    Upload a chest X-ray, write what you want analyzed, hit run.
+                    Upload an X-ray and tell the model what you want it to look for.
                 </p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                     <div className="mb-2 flex items-center justify-between">
-                        <label className="text-sm font-medium text-white">Image</label>
-                        <span className="text-xs text-zinc-500">PNG / JPG / JPEG</span>
+                        <label className="text-sm font-medium text-white">
+                            X-ray
+                        </label>
+
+                        <span className="text-xs text-zinc-500">
+                            PNG / JPG / JPEG
+                        </span>
                     </div>
 
                     <label
                         htmlFor="medical-image"
-                        className="block cursor-pointer rounded border-2 border-dashed border-zinc-600 bg-zinc-900 p-4 hover:border-purple-500 transition-colors"
+                        className="block cursor-pointer rounded border-2 border-dashed border-zinc-600 bg-zinc-900 p-4 transition-colors hover:border-purple-500"
                     >
                         {previewUrl ? (
                             <div>
                                 <img
                                     src={previewUrl}
-                                    alt="preview"
+                                    alt="X-ray preview"
                                     className="mx-auto max-h-80 w-full rounded object-contain bg-zinc-950"
                                 />
-                                <p className="mt-2 text-center text-xs text-zinc-400">click to replace</p>
+
+                                <p className="mt-2 text-center text-xs text-zinc-400">
+                                    click to choose another image
+                                </p>
                             </div>
                         ) : (
                             <div className="py-10 text-center">
-                                <p className="text-sm text-zinc-400">drop image here or click to browse</p>
+                                <p className="text-sm text-zinc-400">
+                                    drop an image here or click to browse
+                                </p>
                             </div>
                         )}
 
@@ -102,13 +118,18 @@ export default function MedicalPredictor() {
                     </label>
 
                     {file && (
-                        <p className="mt-1 text-xs text-zinc-500">{file.name}</p>
+                        <p className="mt-1 text-xs text-zinc-500">
+                            {file.name}
+                        </p>
                     )}
                 </div>
 
                 <div>
-                    <label htmlFor="analysis-prompt" className="mb-2 block text-sm font-medium text-white">
-                        Prompt
+                    <label
+                        htmlFor="analysis-prompt"
+                        className="mb-2 block text-sm font-medium text-white"
+                    >
+                        What should I look for?
                     </label>
 
                     <textarea
@@ -116,7 +137,7 @@ export default function MedicalPredictor() {
                         rows={4}
                         value={prompt}
                         onChange={(e) => setPrompt(e.target.value)}
-                        placeholder="e.g. Analyze this chest X-ray and describe any visible abnormalities."
+                        placeholder="e.g. Describe any visible abnormalities in this chest X-ray."
                         className="w-full rounded border border-zinc-700 bg-zinc-900 px-3 py-2.5 text-sm text-white placeholder:text-zinc-600 focus:border-purple-500 focus:outline-none"
                     />
                 </div>
@@ -126,7 +147,7 @@ export default function MedicalPredictor() {
                     disabled={loading}
                     className="w-full rounded bg-purple-600 py-2.5 text-sm font-medium text-white hover:bg-purple-500 disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                    {loading ? 'analyzing...' : 'run analysis'}
+                    {loading ? 'analyzing...' : 'analyze'}
                 </button>
             </form>
 
@@ -139,8 +160,13 @@ export default function MedicalPredictor() {
             {result && (
                 <div className="mt-6 rounded border border-zinc-700 bg-zinc-900 p-5">
                     <div className="mb-4 flex items-center gap-2">
-                        <span className="font-mono text-xs text-purple-400">output</span>
-                        <span className="text-xs text-zinc-600">— MedGemma</span>
+                        <span className="font-mono text-xs text-purple-400">
+                            output
+                        </span>
+
+                        <span className="text-xs text-zinc-600">
+                            — MedGemma
+                        </span>
                     </div>
 
                     <div className="prose prose-invert prose-sm max-w-none text-zinc-300">
@@ -150,7 +176,7 @@ export default function MedicalPredictor() {
             )}
 
             <p className="mt-8 text-center text-xs text-zinc-600">
-                experimental — not a substitute for clinical judgment
+                experimental — use alongside clinical judgment
             </p>
         </main>
     );
